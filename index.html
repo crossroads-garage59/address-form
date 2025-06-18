@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Address Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+    <style>
+    
+        /* Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dark Mode (default) */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 24px 16px 40px;
+            background-color: #1e1e1e;
+            border-radius: 16px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            min-height: 100vh;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .logo-container img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .form-container h6 {
+            text-align: center;
+            font-size: 12px;
+            font-style: normal;
+            margin-top: 40px;
+            color: #ffffff;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #e0e0e0;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            background-color: #2c2c2c;
+            border: 1px solid #3f3f3f;
+            color: #ffffff;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .input-field::placeholder {
+            color: #888888;
+        }
+
+        .input-field:focus {
+            border-color: #fbecea;
+            background-color: #3a3a3a;
+            outline: none;
+        }
+
+        select.input-field {
+            background-color: #2c2c2c;
+            color: #ffffff;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #a0a0a0;
+            margin-top: -12px;
+            margin-bottom: 16px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            background-color: #dc2831;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            margin-top: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #ec3942;
+        }
+
+        @media (min-width: 600px) {
+            .form-container {
+            margin-top: 40px;
+            border-radius: 20px;
+            }
+        }
+
+        /* LIGHT MODE OVERRIDE */
+        @media (prefers-color-scheme: light) {
+            body {
+            background-color: #f5f5f5;
+            color: #1a1a1a;
+            }
+
+            .form-container {
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-container h6 {
+            color: #1a1a1a;
+            }
+
+            label {
+            color: #333333;
+            }
+
+            .input-field {
+            background-color: #f9f9f9;
+            color: #1a1a1a;
+            border: 1px solid #cccccc;
+            }
+
+            .input-field::placeholder {
+            color: #999999;
+            }
+
+            .input-field:focus {
+            border-color: #636262;
+            background-color: #ffffff;
+            }
+
+            select.input-field {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            }
+
+            .note {
+            color: #666666;
+            }
+
+            button[type="submit"] {
+            background-color: #df3636;
+            color: white;
+            }
+
+            button[type="submit"]:hover {
+            background-color: #ef5f5f;
+            }
+        }
+</style>
+
+
+  <script>
+    function sendToWhatsApp(event) {
+      event.preventDefault();
+
+      const form = document.querySelector("form");
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const country = document.getElementById("country").value;
+      const fullname = document.getElementById("fullname").value;
+      const house = document.getElementById("house").value;
+      const street = document.getElementById("street").value;
+      const landmark = document.getElementById("landmark").value;
+      const city = document.getElementById("city").value;
+      const pincode = document.getElementById("pincode").value;
+      const mobile = document.getElementById("mobile").value;
+      const state = document.getElementById("state").value;
+
+      const message = `*CROSSROADS GARAGE*\n\n` +
+                      `Address Submission📍\n\n` +
+                      `${fullname}\n\n` +
+                      `${house}\n` +
+                      `${street}\n` +
+                      `${landmark}\n` +
+                      `${city}\n` +
+                      `${state}\n` +
+                      `Pincode - ${pincode}\n\n` +
+                      `Mobile: ${mobile}`;
+
+      const phoneNumber = "+918807873976";
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, "_blank");
+    }
+  </script>
+</head>
+
+<body>
+  <div class="form-container">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo" />
+    </div>
+    <h6>Delivery Address Below</h6>
+    <br></br>
+    <form onsubmit="sendToWhatsApp(event)">
+      <label for="country">Country/Region</label>
+      <select id="country" name="country" class="input-field" required>
+        <option value="">Select country</option>
+        <option selected>India</option>
+      </select>
+
+      <label for="fullname">Full name (First and Last name)</label>
+      <input type="text" id="fullname" name="fullname" class="input-field" required />
+
+      <label for="house">Flat, House no., Building, Company, Apartment</label>
+      <input type="text" id="house" name="house" class="input-field" required />
+
+      <label for="street">Area, Street, Sector, Village</label>
+      <input type="text" id="street" name="street" class="input-field" required />
+
+      <label for="landmark">Landmark</label>
+      <input type="text" id="landmark" name="landmark" class="input-field" />
+
+      <label for="city">Town/City</label>
+      <input type="text" id="city" name="city" class="input-field" required />
+
+      <label for="pincode">Pincode</label>
+      <input
+        type="text"
+        id="pincode"
+        name="pincode"
+        class="input-field"
+        required
+        pattern="\d{6}"
+        placeholder="6 digits [0-9] PIN code"
+      />
+
+      <label for="state">State/Union Territory</label>
+      <select id="state" name="state" class="input-field" required>
+        <option value="">Choose a state or union territory</option>
+        <option>Andhra Pradesh</option>
+        <option>Arunachal Pradesh</option>
+        <option>Assam</option>
+        <option>Bihar</option>
+        <option>Chhattisgarh</option>
+        <option>Goa</option>
+        <option>Gujarat</option>
+        <option>Haryana</option>
+        <option>Himachal Pradesh</option>
+        <option>Jharkhand</option>
+        <option>Karnataka</option>
+        <option>Kerala</option>
+        <option>Madhya Pradesh</option>
+        <option>Maharashtra</option>
+        <option>Manipur</option>
+        <option>Meghalaya</option>
+        <option>Mizoram</option>
+        <option>Nagaland</option>
+        <option>Odisha</option>
+        <option>Punjab</option>
+        <option>Rajasthan</option>
+        <option>Sikkim</option>
+        <option>Tamil Nadu</option>
+        <option>Telangana</option>
+        <option>Tripura</option>
+        <option>Uttar Pradesh</option>
+        <option>Uttarakhand</option>
+        <option>West Bengal</option>
+        <option>Andaman and Nicobar Islands</option>
+        <option>Chandigarh</option>
+        <option>Dadra and Nagar Haveli and Daman and Diu</option>
+        <option>Delhi</option>
+        <option>Jammu and Kashmir</option>
+        <option>Ladakh</option>
+        <option>Lakshadweep</option>
+        <option>Puducherry</option>
+      </select>
+
+      <label for="mobile">Mobile number</label>
+      <input
+        type="tel"
+        id="mobile"
+        name="mobile"
+        class="input-field"
+        required
+        pattern="[0-9]{10}"
+        placeholder="10-digit number"
+      />
+      <div class="note">May be used to assist delivery</div>
+
+      <button type="submit">Send via WhatsApp</button>
+    </form>
+  </div>
+</body>
+</html>
